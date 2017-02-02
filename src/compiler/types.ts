@@ -2393,8 +2393,9 @@
         getConstantValue(node: EnumMember | PropertyAccessExpression | ElementAccessExpression): number;
         isValidPropertyAccess(node: PropertyAccessExpression | QualifiedName, propertyName: string): boolean;
         getAliasedSymbol(symbol: Symbol): Symbol; //doc
+        /* @internal */ getImmediateAliasedSymbol(symbol: Symbol): Symbol; //doc
         //KLUDGE
-        getShallowTargetOfExportSpecifier(symbol: Symbol): Symbol;
+        getShallowTargetOfExportSpecifier(symbol: Symbol): Symbol; //Is this just getExportSpecifierLocalTargetSymbol?????
         getExportsOfModule(moduleSymbol: Symbol): Symbol[];
         /** Unlike `getExportsOfModule`, this includes properties of an `export =` value. */
         /* @internal */ getExportsAndPropertiesOfModule(moduleSymbol: Symbol): Symbol[];
@@ -2703,6 +2704,7 @@
 
     /* @internal */
     export interface SymbolLinks {
+        immediateTarget?: Symbol; //doc
         target?: Symbol;                    // Resolved (non-alias) target of an alias
         type?: Type;                        // Type of value symbol
         declaredType?: Type;                // Type of class, interface, enum, type alias, or type parameter
